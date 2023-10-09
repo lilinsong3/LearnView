@@ -1,0 +1,15 @@
+<resources>
+    <style name="Widget.Theme.LearnView.GridTextView" parent="">
+        <item name="textColor">?attr/colorOnSurface</item>
+        <item name="textSize">32sp</item>
+        <item name="textPosition">startTop</item>
+        <item name="colGap">8dp</item>
+        <item name="rowGap">8dp</item>
+        <item name="borderColor">?attr/colorOnSurface</item>
+        <item name="borderThickness">1dp</item>
+        <item name="dashColor">#333</item>
+        <item name="dashThickness">2dp</item>
+        <item name="dashLength">2dp</item>
+        <item name="dashGap">2dp</item>
+    </style>
+</resources>

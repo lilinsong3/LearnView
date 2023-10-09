@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_catalog"
+        android:title="@string/short_custom_view">
+        <menu>
+            <item
+                android:id="@+id/gridTextFragment"
+                android:icon="@drawable/ic_grid"
+                android:title="@string/short_grid_text_title"
+                android:checkable="true" />
+        </menu>
+    </item>
+</menu>
