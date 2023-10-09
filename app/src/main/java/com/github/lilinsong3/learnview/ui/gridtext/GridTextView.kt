@@ -7,9 +7,6 @@ import android.util.AttributeSet
 import android.view.View
 import com.github.lilinsong3.learnview.R
 
-/**
- * TODO: 状态恢复
- */
 class GridTextView : View {
 
     /**
