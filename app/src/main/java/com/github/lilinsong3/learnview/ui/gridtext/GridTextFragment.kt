@@ -17,8 +17,8 @@ class GridTextFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _dataBinding = FragmentGridTextBinding.inflate(inflater, container, false);
-        return dataBinding.root;
+        _dataBinding = FragmentGridTextBinding.inflate(inflater, container, false)
+        return dataBinding.root
     }
 
     override fun onDestroyView() {
