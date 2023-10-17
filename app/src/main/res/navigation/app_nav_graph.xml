@@ -10,5 +10,10 @@
         android:name="com.github.lilinsong3.learnview.ui.gridtext.GridTextFragment"
         android:label="@string/short_grid_text_title"
         tools:layout="@layout/fragment_grid_text" />
+    <fragment
+        android:id="@+id/dazzlingBoardFragment"
+        android:name="com.github.lilinsong3.learnview.ui.dazzlingboard.DazzlingBoardFragment"
+        android:label="fragment_attraction"
+        tools:layout="@layout/fragment_dazzling_board" />
 
 </navigation>

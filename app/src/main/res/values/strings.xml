@@ -2,6 +2,11 @@
     <string name="app_name">Learn View</string>
     <string name="short_nav_catalog">导航目录</string>
     <string name="short_custom_view">自定义view</string>
+    <string name="short_demo_practice">demo实践</string>
     <string name="short_grid_text_content">自定义田字格view</string>
     <string name="short_grid_text_title">田字格 GridTextView</string>
+    <string name="short_dazzling_board_title">夺目牌 DazzlingBoard</string>
+    <string name="long_input_slogan">请输入标语</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>
