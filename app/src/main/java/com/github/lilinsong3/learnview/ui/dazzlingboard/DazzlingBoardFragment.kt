@@ -6,11 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.github.lilinsong3.learnview.databinding.FragmentDazzlingBoardBinding
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * An example full-screen fragment that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
+@AndroidEntryPoint
 class DazzlingBoardFragment : Fragment() {
 
     private var _binding: FragmentDazzlingBoardBinding? = null
