@@ -7,6 +7,12 @@
     <string name="short_grid_text_title">田字格 GridTextView</string>
     <string name="short_dazzling_board_title">夺目牌 DazzlingBoard</string>
     <string name="long_input_slogan">请输入标语</string>
+    <string name="short_background_color">背景色</string>
+    <string name="short_text_color">文字颜色</string>
+    <string name="short_text_size">文字尺寸</string>
+    <string name="short_flashing">闪烁</string>
+    <string name="short_rolling">滚动</string>
+    <string name="short_play">播放</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>
