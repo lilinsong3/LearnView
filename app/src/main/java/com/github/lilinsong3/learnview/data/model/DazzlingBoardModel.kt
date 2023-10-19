@@ -1,10 +1,11 @@
 package com.github.lilinsong3.learnview.data.model
 
 data class DazzlingBoardModel(
-    val text: String,
-    val backgroundColor: Int,
-    val textColor: Int,
-    val textSize: Int,
-    val flashing: Boolean,
-    val rolling: Boolean
+    // TODO: 修改默认值
+    val text: String = "",
+    val backgroundColor: Int = 0x000000,
+    val textColor: Int = 0x000000,
+    val textSize: Int = 48,
+    val flashing: Boolean = true,
+    val rolling: Boolean = true
 )
