@@ -6,5 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class DazzlingBoardViewModel @Inject constructor(dazzlingBoardRepository: DazzlingBoardRepository): ViewModel() {
+class DazzlingBoardViewModel @Inject constructor(
+    private val dazzlingBoardRepository: DazzlingBoardRepository
+) : ViewModel() {
 }
