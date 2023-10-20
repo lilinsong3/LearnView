@@ -42,10 +42,28 @@ class DazzlingBoardFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.dazzlingBoardModelFlow.collect {
-                    // TODO: 数据复制给ui
+                    // 预览牌
+                    binding.dbTextBoardPreview.text = it.text
+                    binding.dbTextBoardPreview.setBackgroundColor(it.backgroundColor)
+                    binding.dbTextBoardPreview.setTextColor(it.textColor)
+                    binding.dbTextBoardPreview.textSize = it.textSize
+                    // TODO: 文本闪烁、滚动，一些大小值限制
+
+                    // 背景颜色 slider
+                    binding.dbSliderBg.value = it.backgroundColor.toFloat()
+                    // 文本颜色 slider
+                    binding.dbSliderSloganColor.value = it.textColor.toFloat()
+                    // 文本尺寸 slider
+                    binding.dbSliderSloganSize.value = it.textSize
+                    // 闪烁 switch
+                    binding.dbSwitchFlashing.isChecked = it.flashing
+                    // 滚动 switch
+                    binding.dbSwitchRolling.isChecked = it.rolling
                 }
             }
         }
+
+        // TODO: 事件绑定
     }
 
     override fun onDestroyView() {
