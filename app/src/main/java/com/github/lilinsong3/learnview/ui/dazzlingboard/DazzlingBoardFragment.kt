@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -39,6 +40,8 @@ class DazzlingBoardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // 数据绑定
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.dazzlingBoardModelFlow.collect {
@@ -63,7 +66,14 @@ class DazzlingBoardFragment : Fragment() {
             }
         }
 
-        // TODO: 事件绑定
+        // TODO: 颜色值转换
+        // 事件绑定
+        binding.dbInputSlogan.editText?.doOnTextChanged { text, _, _, _ -> viewModel.inputText((text ?: "") as String) }
+        binding.dbSliderBg.addOnChangeListener { _, value, _ -> viewModel.slideBackgroundColor(value.toInt()) }
+        binding.dbSliderSloganColor.addOnChangeListener { _, value, _ -> viewModel.slideTextColor(value.toInt()) }
+        binding.dbSliderSloganSize.addOnChangeListener { _, value, _ -> viewModel.slideTextSize(value) }
+        binding.dbSwitchFlashing.setOnCheckedChangeListener { _, isChecked -> viewModel.switchFlashing(isChecked) }
+        binding.dbSwitchRolling.setOnCheckedChangeListener { _, isChecked -> viewModel.switchRolling(isChecked) }
     }
 
     override fun onDestroyView() {
