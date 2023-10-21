@@ -50,7 +50,15 @@ class DazzlingBoardFragment : Fragment() {
                     binding.dbTextBoardPreview.setBackgroundColor(it.backgroundColor)
                     binding.dbTextBoardPreview.setTextColor(it.textColor)
                     binding.dbTextBoardPreview.textSize = it.textSize
-                    // TODO: 文本闪烁、滚动，一些大小值限制
+                    // TODO: 一些大小值限制
+
+                    if (it.flashing) {
+                        // TODO: 播放动画 
+                    }
+
+                    if (it.rolling) {
+                        // TODO: 播放动画
+                    }
 
                     // 背景颜色 slider
                     binding.dbSliderBg.value = it.backgroundColor.toFloat()
