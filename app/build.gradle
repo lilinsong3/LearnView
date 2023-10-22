@@ -60,7 +60,16 @@ dependencies {
     implementation "com.google.dagger:hilt-android:2.44"
     kapt "com.google.dagger:hilt-compiler:2.44"
     implementation "androidx.datastore:datastore-preferences:1.0.0"
-    implementation "androidx.activity:activity-ktx:1.6.1"
+    implementation("androidx.activity:activity-ktx") {
+        version {
+            strictly '1.6.1'
+        }
+    }
+    implementation("androidx.activity:activity") {
+        version {
+            strictly '1.6.1'
+        }
+    }
     implementation "androidx.fragment:fragment-ktx:1.6.1"
     // ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"

@@ -45,6 +45,7 @@ class DazzlingBoardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // FIXME: mvvm循环、第二次switch事件之后不起作用
         // 数据绑定
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -118,7 +119,7 @@ class DazzlingBoardFragment : Fragment() {
         binding.dbInputSlogan.editText?.doOnTextChanged { text, _, _, _ -> viewModel.inputText((text ?: "") as String) }
         binding.dbSliderBg.addOnChangeListener { _, value, _ -> viewModel.slideBackgroundColor(value.toInt()) }
         binding.dbSliderSloganColor.addOnChangeListener { _, value, _ -> viewModel.slideTextColor(value.toInt()) }
-        binding.dbSliderSloganSize.addOnChangeListener { _, value, _ -> viewModel.slideTextSize(value) }
+        binding.dbSliderSloganSize.addOnChangeListener { _, value, byUser -> if (byUser) viewModel.slideTextSize(value) }
         binding.dbSwitchFlashing.setOnCheckedChangeListener { _, isChecked -> viewModel.switchFlashing(isChecked) }
         binding.dbSwitchRolling.setOnCheckedChangeListener { _, isChecked -> viewModel.switchRolling(isChecked) }
     }

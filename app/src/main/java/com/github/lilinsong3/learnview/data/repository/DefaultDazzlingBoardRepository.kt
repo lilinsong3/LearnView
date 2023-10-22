@@ -7,7 +7,9 @@ import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
 import com.github.lilinsong3.learnview.data.model.DazzlingBoardModel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
+import java.io.IOException
 import javax.inject.Inject
 
 val Context.dazzlingBoardDataStore: DataStore<Preferences> by preferencesDataStore(name = "dazzlingBoard")
@@ -22,7 +24,16 @@ class DefaultDazzlingBoardRepository @Inject constructor(private val dataStore: 
         val ROLLING = booleanPreferencesKey("rolling")
     }
 
-    override fun getDazzlingBoardStream(): Flow<DazzlingBoardModel> = dataStore.data.map { preferences ->
+    override fun getDazzlingBoardStream(): Flow<DazzlingBoardModel> = dataStore.data
+        .catch { exception ->
+            // dataStore.data throws an IOException when an error is encountered when reading data
+            if (exception is IOException) {
+                emit(emptyPreferences())
+            } else {
+                throw exception
+            }
+        }
+        .map { preferences ->
         DazzlingBoardModel(
             preferences[TEXT] ?: "夺目牌",
             preferences[BACKGROUND_COLOR] ?: Color.BLACK,
