@@ -7,19 +7,24 @@
     android:padding="16dp"
     tools:context=".ui.dazzlingboard.DazzlingBoardFragment">
 
-    <TextView
-        android:id="@+id/db_text_board_preview"
+    <FrameLayout
+        android:id="@+id/db_layout_board_preview"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="?attr/colorOnSurface"
         android:paddingVertical="16dp"
-        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="测试"
-        tools:textColor="?attr/colorSurface"
-        tools:textSize="48sp" />
+        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:id="@+id/db_text_slogan_preview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            tools:text="测试"
+            tools:textColor="?attr/colorSurface"
+            tools:textSize="48sp" />
+    </FrameLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/db_input_slogan"
@@ -28,7 +33,7 @@
         android:hint="@string/long_input_slogan"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/db_text_board_preview"
+        app:layout_constraintTop_toBottomOf="@id/db_layout_board_preview"
         app:layout_constraintBottom_toTopOf="@id/db_text_bg">
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"

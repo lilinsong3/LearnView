@@ -1,9 +1,14 @@
 package com.github.lilinsong3.learnview.ui.dazzlingboard
 
+import android.animation.Animator
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.collection.ArraySet
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -40,24 +45,58 @@ class DazzlingBoardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         // 数据绑定
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.dazzlingBoardModelFlow.collect {
                     // 预览牌
-                    binding.dbTextBoardPreview.text = it.text
-                    binding.dbTextBoardPreview.setBackgroundColor(it.backgroundColor)
-                    binding.dbTextBoardPreview.setTextColor(it.textColor)
-                    binding.dbTextBoardPreview.textSize = it.textSize
+                    binding.dbTextSloganPreview.text = it.text
+                    binding.dbLayoutBoardPreview.setBackgroundColor(it.backgroundColor)
+                    binding.dbTextSloganPreview.setTextColor(it.textColor)
+                    binding.dbTextSloganPreview.textSize = it.textSize
                     // TODO: 一些大小值限制
 
+                    val playSet = ArraySet<Animator>(3)
+
                     if (it.flashing) {
-                        // TODO: 播放动画 
+                        // 背景色动画和文字颜色动画
+                        playSet.apply {
+                            add(ObjectAnimator.ofArgb(
+                                binding.dbLayoutBoardPreview,
+                                "backgroundColor",
+                                it.backgroundColor,
+                                it.textColor
+                            ).apply {
+                                repeatCount = ValueAnimator.INFINITE
+                            })
+                            add(ObjectAnimator.ofArgb(
+                                binding.dbTextSloganPreview,
+                                "textColor",
+                                it.textColor,
+                                it.backgroundColor
+                            ).apply {
+                                repeatCount = ValueAnimator.INFINITE
+                            })
+                        }
                     }
 
                     if (it.rolling) {
-                        // TODO: 播放动画
+                        // 平移滚动动画
+                        playSet.add(ObjectAnimator.ofFloat(
+                            binding.dbTextSloganPreview,
+                            "translationX",
+                            binding.dbTextSloganPreview.left.toFloat(),
+                            - binding.dbTextSloganPreview.width.toFloat(),
+                            binding.dbLayoutBoardPreview.width.toFloat(),
+                            binding.dbTextSloganPreview.left.toFloat()
+                        ).apply {
+                            repeatCount = ValueAnimator.INFINITE
+                        })
+                    }
+
+                    AnimatorSet().apply {
+                        playTogether(playSet)
+                        start()
                     }
 
                     // 背景颜色 slider
