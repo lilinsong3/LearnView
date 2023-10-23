@@ -5,10 +5,10 @@ import kotlinx.coroutines.flow.Flow
 
 interface DazzlingBoardRepository {
     fun getDazzlingBoardStream(): Flow<DazzlingBoardModel>
-    suspend fun saveSlogan(slogan: String): Unit
-    suspend fun saveBackgroundColor(backgroundColor: Int): Unit
-    suspend fun saveSloganColor(sloganColor: Int): Unit
-    suspend fun saveSloganSize(sloganSize: Float): Unit
-    suspend fun saveFlashing(flashing: Boolean): Unit
-    suspend fun saveRolling(rolling: Boolean): Unit
+    suspend fun saveSlogan(slogan: String)
+    suspend fun saveBackgroundColor(backgroundColor: Int)
+    suspend fun saveSloganColor(sloganColor: Int)
+    suspend fun saveSloganSize(sloganSize: Float)
+    suspend fun saveFlashing(flashing: Boolean)
+    suspend fun saveRolling(rolling: Boolean)
 }

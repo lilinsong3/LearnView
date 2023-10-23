@@ -16,6 +16,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.github.lilinsong3.learnview.databinding.FragmentDazzlingBoardBinding
+import com.github.lilinsong3.learnview.ext.doOnValueDebounceChange
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -80,7 +81,6 @@ class DazzlingBoardFragment : Fragment() {
                                 it.backgroundColor,
                                 it.textColor
                             ).apply {
-                                duration = 500L
                                 repeatCount = ValueAnimator.INFINITE
                             })
                             add(ObjectAnimator.ofArgb(
@@ -89,7 +89,6 @@ class DazzlingBoardFragment : Fragment() {
                                 it.textColor,
                                 it.backgroundColor
                             ).apply {
-                                duration = 500L
                                 repeatCount = ValueAnimator.INFINITE
                             })
                         }
@@ -105,6 +104,7 @@ class DazzlingBoardFragment : Fragment() {
                             binding.dbLayoutBoardPreview.width.toFloat(),
                             binding.dbTextSloganPreview.left.toFloat()
                         ).apply {
+                            duration = 1000L
                             repeatCount = ValueAnimator.INFINITE
                         })
                     }
@@ -118,12 +118,36 @@ class DazzlingBoardFragment : Fragment() {
         }
 
         // 事件绑定
-        binding.dbInputSlogan.editText?.doOnTextChanged { text, _, _, _ -> viewModel.inputText((text ?: "") as String) }
-        binding.dbSliderBg.addOnChangeListener { _, value, fromUser -> if (fromUser) viewModel.slideBackgroundColor(value.toInt()) }
-        binding.dbSliderSloganColor.addOnChangeListener { _, value, fromUser -> if (fromUser) viewModel.slideTextColor(value.toInt()) }
-        binding.dbSliderSloganSize.addOnChangeListener { _, value, fromUser -> if (fromUser) viewModel.slideTextSize(value) }
-        binding.dbSwitchFlashing.setOnCheckedChangeListener { _, isChecked -> viewModel.switchFlashing(isChecked) }
-        binding.dbSwitchRolling.setOnCheckedChangeListener { _, isChecked -> viewModel.switchRolling(isChecked) }
+        binding.dbInputSlogan.editText?.doOnTextChanged { text, _, _, _ ->
+            viewModel.inputText(
+                (text ?: "") as String
+            )
+        }
+        binding.dbSliderBg.doOnValueDebounceChange { _, value, fromUser ->
+            if (fromUser) viewModel.slideBackgroundColor(
+                value.toInt()
+            )
+        }
+        binding.dbSliderSloganColor.doOnValueDebounceChange { _, value, fromUser ->
+            if (fromUser) viewModel.slideTextColor(
+                value.toInt()
+            )
+        }
+        binding.dbSliderSloganSize.doOnValueDebounceChange { _, value, fromUser ->
+            if (fromUser) viewModel.slideTextSize(
+                value
+            )
+        }
+        binding.dbSwitchFlashing.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.switchFlashing(
+                isChecked
+            )
+        }
+        binding.dbSwitchRolling.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.switchRolling(
+                isChecked
+            )
+        }
     }
 
     override fun onDestroyView() {
