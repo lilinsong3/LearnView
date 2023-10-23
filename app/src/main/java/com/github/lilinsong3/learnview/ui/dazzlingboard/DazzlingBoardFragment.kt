@@ -16,7 +16,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.github.lilinsong3.learnview.databinding.FragmentDazzlingBoardBinding
-import com.github.lilinsong3.learnview.ext.doOnValueDebounceChange
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -48,6 +47,7 @@ class DazzlingBoardFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         // FIXME: 第二次switch事件之后不起作用
         // TODO: 防抖节流
+        lateinit var animatorSet: AnimatorSet
         // 数据绑定
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -70,6 +70,7 @@ class DazzlingBoardFragment : Fragment() {
                     // 滚动 switch
                     binding.dbSwitchRolling.isChecked = it.rolling
 
+                    // TODO: 优化动画逻辑
                     // 动画
                     val playSet = ArraySet<Animator>(3)
                     if (it.flashing) {
@@ -104,12 +105,13 @@ class DazzlingBoardFragment : Fragment() {
                             binding.dbLayoutBoardPreview.width.toFloat(),
                             binding.dbTextSloganPreview.left.toFloat()
                         ).apply {
-                            duration = 1000L
+                            duration = 2000L
                             repeatCount = ValueAnimator.INFINITE
                         })
                     }
 
-                    AnimatorSet().apply {
+                    animatorSet = AnimatorSet()
+                    animatorSet.apply {
                         playTogether(playSet)
                         start()
                     }
@@ -123,27 +125,29 @@ class DazzlingBoardFragment : Fragment() {
                 (text ?: "") as String
             )
         }
-        binding.dbSliderBg.doOnValueDebounceChange { _, value, fromUser ->
+        binding.dbSliderBg.addOnChangeListener { _, value, fromUser ->
             if (fromUser) viewModel.slideBackgroundColor(
                 value.toInt()
             )
         }
-        binding.dbSliderSloganColor.doOnValueDebounceChange { _, value, fromUser ->
+        binding.dbSliderSloganColor.addOnChangeListener { _, value, fromUser ->
             if (fromUser) viewModel.slideTextColor(
                 value.toInt()
             )
         }
-        binding.dbSliderSloganSize.doOnValueDebounceChange { _, value, fromUser ->
+        binding.dbSliderSloganSize.addOnChangeListener { _, value, fromUser ->
             if (fromUser) viewModel.slideTextSize(
                 value
             )
         }
         binding.dbSwitchFlashing.setOnCheckedChangeListener { _, isChecked ->
+            animatorSet.cancel()
             viewModel.switchFlashing(
                 isChecked
             )
         }
         binding.dbSwitchRolling.setOnCheckedChangeListener { _, isChecked ->
+            animatorSet.cancel()
             viewModel.switchRolling(
                 isChecked
             )

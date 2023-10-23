@@ -3,7 +3,7 @@ package com.github.lilinsong3.learnview.ext
 import com.google.android.material.slider.Slider
 import com.google.android.material.slider.Slider.OnChangeListener
 
-public inline fun Slider.doOnValueDebounceChange (
+inline fun Slider.doOnValueDebounceChange (
     debounceTime: Long = 100L,
     crossinline action: (
         slider: Slider,
@@ -17,7 +17,7 @@ public inline fun Slider.doOnValueDebounceChange (
             val currentTime = System.currentTimeMillis()
             if (currentTime - lastTime > debounceTime) {
                 lastTime = currentTime
-                action.invoke(slider, value, fromUser)
+                action(slider, value, fromUser)
             }
         }
     }
