@@ -45,20 +45,32 @@ class DazzlingBoardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // FIXME: mvvm循环、第二次switch事件之后不起作用
+        // FIXME: 第二次switch事件之后不起作用
+        // TODO: 防抖节流
         // 数据绑定
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.dazzlingBoardModelFlow.collect {
                     // 预览牌
-                    binding.dbTextSloganPreview.text = it.text
+                    if (binding.dbTextSloganPreview.text != it.text) {
+                        binding.dbTextSloganPreview.text = it.text
+                    }
                     binding.dbLayoutBoardPreview.setBackgroundColor(it.backgroundColor)
                     binding.dbTextSloganPreview.setTextColor(it.textColor)
                     binding.dbTextSloganPreview.textSize = it.textSize
-                    // TODO: 一些大小值限制
+                    // 背景颜色 slider
+                    binding.dbSliderBg.value = it.backgroundColor.toFloat()
+                    // 文本颜色 slider
+                    binding.dbSliderSloganColor.value = it.textColor.toFloat()
+                    // 文本尺寸 slider
+                    binding.dbSliderSloganSize.value = it.textSize
+                    // 闪烁 switch
+                    binding.dbSwitchFlashing.isChecked = it.flashing
+                    // 滚动 switch
+                    binding.dbSwitchRolling.isChecked = it.rolling
 
+                    // 动画
                     val playSet = ArraySet<Animator>(3)
-
                     if (it.flashing) {
                         // 背景色动画和文字颜色动画
                         playSet.apply {
@@ -68,6 +80,7 @@ class DazzlingBoardFragment : Fragment() {
                                 it.backgroundColor,
                                 it.textColor
                             ).apply {
+                                duration = 500L
                                 repeatCount = ValueAnimator.INFINITE
                             })
                             add(ObjectAnimator.ofArgb(
@@ -76,6 +89,7 @@ class DazzlingBoardFragment : Fragment() {
                                 it.textColor,
                                 it.backgroundColor
                             ).apply {
+                                duration = 500L
                                 repeatCount = ValueAnimator.INFINITE
                             })
                         }
@@ -99,27 +113,15 @@ class DazzlingBoardFragment : Fragment() {
                         playTogether(playSet)
                         start()
                     }
-
-                    // 背景颜色 slider
-                    binding.dbSliderBg.value = it.backgroundColor.toFloat()
-                    // 文本颜色 slider
-                    binding.dbSliderSloganColor.value = it.textColor.toFloat()
-                    // 文本尺寸 slider
-                    binding.dbSliderSloganSize.value = it.textSize
-                    // 闪烁 switch
-                    binding.dbSwitchFlashing.isChecked = it.flashing
-                    // 滚动 switch
-                    binding.dbSwitchRolling.isChecked = it.rolling
                 }
             }
         }
 
-        // TODO: 颜色值转换
         // 事件绑定
         binding.dbInputSlogan.editText?.doOnTextChanged { text, _, _, _ -> viewModel.inputText((text ?: "") as String) }
-        binding.dbSliderBg.addOnChangeListener { _, value, _ -> viewModel.slideBackgroundColor(value.toInt()) }
-        binding.dbSliderSloganColor.addOnChangeListener { _, value, _ -> viewModel.slideTextColor(value.toInt()) }
-        binding.dbSliderSloganSize.addOnChangeListener { _, value, byUser -> if (byUser) viewModel.slideTextSize(value) }
+        binding.dbSliderBg.addOnChangeListener { _, value, fromUser -> if (fromUser) viewModel.slideBackgroundColor(value.toInt()) }
+        binding.dbSliderSloganColor.addOnChangeListener { _, value, fromUser -> if (fromUser) viewModel.slideTextColor(value.toInt()) }
+        binding.dbSliderSloganSize.addOnChangeListener { _, value, fromUser -> if (fromUser) viewModel.slideTextSize(value) }
         binding.dbSwitchFlashing.setOnCheckedChangeListener { _, isChecked -> viewModel.switchFlashing(isChecked) }
         binding.dbSwitchRolling.setOnCheckedChangeListener { _, isChecked -> viewModel.switchRolling(isChecked) }
     }
