@@ -47,4 +47,10 @@ class DazzlingBoardViewModel @Inject constructor(
             dazzlingBoardRepository.saveRolling(rolling)
         }
     }
+
+    fun reset() {
+        viewModelScope.launch {
+            dazzlingBoardRepository.reset()
+        }
+    }
 }

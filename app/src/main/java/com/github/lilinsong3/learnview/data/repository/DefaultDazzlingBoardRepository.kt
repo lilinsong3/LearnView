@@ -13,7 +13,9 @@ import java.io.IOException
 import javax.inject.Inject
 
 val Context.dazzlingBoardDataStore: DataStore<Preferences> by preferencesDataStore(name = "dazzlingBoard")
-class DefaultDazzlingBoardRepository @Inject constructor(private val dataStore: DataStore<Preferences>): DazzlingBoardRepository {
+
+class DefaultDazzlingBoardRepository @Inject constructor(private val dataStore: DataStore<Preferences>) :
+    DazzlingBoardRepository {
 
     companion object {
         val TEXT = stringPreferencesKey("text")
@@ -34,15 +36,15 @@ class DefaultDazzlingBoardRepository @Inject constructor(private val dataStore: 
             }
         }
         .map { preferences ->
-        DazzlingBoardModel(
-            preferences[TEXT] ?: "夺目牌",
-            preferences[BACKGROUND_COLOR] ?: Color.BLACK,
-            preferences[TEXT_COLOR] ?: Color.WHITE,
-            preferences[TEXT_SIZE] ?: 48f,
-            preferences[FLASHING] ?: true,
-            preferences[ROLLING] ?: true,
-        )
-    }
+            DazzlingBoardModel(
+                preferences[TEXT] ?: "夺目牌",
+                preferences[BACKGROUND_COLOR] ?: Color.BLACK,
+                preferences[TEXT_COLOR] ?: Color.WHITE,
+                preferences[TEXT_SIZE] ?: 48f,
+                preferences[FLASHING] ?: true,
+                preferences[ROLLING] ?: true,
+            )
+        }
 
     override suspend fun saveSlogan(slogan: String) {
         dataStore.edit { mutablePreferences ->
@@ -77,6 +79,17 @@ class DefaultDazzlingBoardRepository @Inject constructor(private val dataStore: 
     override suspend fun saveRolling(rolling: Boolean) {
         dataStore.edit { mutablePreferences ->
             mutablePreferences[ROLLING] = rolling
+        }
+    }
+
+    override suspend fun reset() {
+        dataStore.edit { mutablePreferences ->
+            mutablePreferences[TEXT] = "夺目牌"
+            mutablePreferences[BACKGROUND_COLOR] = Color.BLACK
+            mutablePreferences[TEXT_COLOR] = Color.WHITE
+            mutablePreferences[TEXT_SIZE] = 48f
+            mutablePreferences[FLASHING] = true
+            mutablePreferences[ROLLING] = true
         }
     }
 }

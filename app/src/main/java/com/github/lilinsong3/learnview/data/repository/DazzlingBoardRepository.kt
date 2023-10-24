@@ -11,4 +11,5 @@ interface DazzlingBoardRepository {
     suspend fun saveSloganSize(sloganSize: Float)
     suspend fun saveFlashing(flashing: Boolean)
     suspend fun saveRolling(rolling: Boolean)
+    suspend fun reset()
 }

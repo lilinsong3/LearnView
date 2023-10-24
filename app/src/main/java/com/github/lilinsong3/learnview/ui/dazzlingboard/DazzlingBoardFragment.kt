@@ -120,6 +120,7 @@ class DazzlingBoardFragment : Fragment() {
 
                     if (it.rolling) {
                         // 平移滚动动画
+                        // FIXME: 首次进入本页，动画要么不动，要么向左移动时不会移出容器外面
                         animatorRolling.apply {
                             setFloatValues(
                                 binding.dbLayoutBoardPreview.width.toFloat(),
@@ -169,6 +170,9 @@ class DazzlingBoardFragment : Fragment() {
                 isChecked
             )
         }
+
+        // 重置
+        binding.dbBtnReset.setOnClickListener { _ -> viewModel.reset() }
     }
 
     override fun onDestroyView() {

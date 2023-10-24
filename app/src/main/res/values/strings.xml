@@ -13,6 +13,7 @@
     <string name="short_flashing">闪烁</string>
     <string name="short_rolling">滚动</string>
     <string name="short_play">播放</string>
+    <string name="short_reset">重置</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>
