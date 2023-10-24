@@ -1,14 +1,14 @@
 package com.github.lilinsong3.learnview.ui.dazzlingboard
 
-import android.animation.Animator
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.collection.ArraySet
+import android.view.animation.LinearInterpolator
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -45,9 +45,39 @@ class DazzlingBoardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // FIXME: 第二次switch事件之后不起作用
-        // TODO: 防抖节流
-        lateinit var animatorSet: AnimatorSet
+        val animatorBoardBackgroundColor = ObjectAnimator.ofArgb(
+            binding.dbLayoutBoardPreview,
+            "backgroundColor",
+            Color.BLACK,
+            Color.WHITE
+        ).apply {
+            repeatCount = ValueAnimator.INFINITE
+            duration = 2000L
+        }
+
+        val animatorSloganColor = ObjectAnimator.ofArgb(
+            binding.dbTextSloganPreview,
+            "textColor",
+            Color.WHITE,
+            Color.BLACK
+        ).apply {
+            repeatCount = ValueAnimator.INFINITE
+            duration = 2000L
+        }
+
+        val animatorFlashing = AnimatorSet().apply {
+            playTogether(animatorBoardBackgroundColor, animatorSloganColor)
+        }
+        val animatorRolling = ObjectAnimator.ofFloat(
+            binding.dbTextSloganPreview,
+            "x",
+            binding.dbLayoutBoardPreview.width.toFloat(),
+            -binding.dbTextSloganPreview.width.toFloat()
+        ).apply {
+            duration = 2000L
+            interpolator = LinearInterpolator()
+            repeatCount = ValueAnimator.INFINITE
+        }
         // 数据绑定
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -70,50 +100,39 @@ class DazzlingBoardFragment : Fragment() {
                     // 滚动 switch
                     binding.dbSwitchRolling.isChecked = it.rolling
 
-                    // TODO: 优化动画逻辑
                     // 动画
-                    val playSet = ArraySet<Animator>(3)
                     if (it.flashing) {
                         // 背景色动画和文字颜色动画
-                        playSet.apply {
-                            add(ObjectAnimator.ofArgb(
-                                binding.dbLayoutBoardPreview,
-                                "backgroundColor",
-                                it.backgroundColor,
-                                it.textColor
-                            ).apply {
-                                repeatCount = ValueAnimator.INFINITE
-                            })
-                            add(ObjectAnimator.ofArgb(
-                                binding.dbTextSloganPreview,
-                                "textColor",
-                                it.textColor,
-                                it.backgroundColor
-                            ).apply {
-                                repeatCount = ValueAnimator.INFINITE
-                            })
+                        animatorBoardBackgroundColor.apply {
+                            setIntValues(it.backgroundColor, it.textColor)
                         }
+                        animatorSloganColor.apply {
+                            setIntValues(it.textColor, it.backgroundColor)
+                        }
+                        if (animatorFlashing.isStarted) {
+                            animatorFlashing.resume()
+                        } else {
+                            animatorFlashing.start()
+                        }
+                    } else {
+                        animatorFlashing.pause()
                     }
 
                     if (it.rolling) {
                         // 平移滚动动画
-                        playSet.add(ObjectAnimator.ofFloat(
-                            binding.dbTextSloganPreview,
-                            "translationX",
-                            binding.dbTextSloganPreview.left.toFloat(),
-                            - binding.dbTextSloganPreview.width.toFloat(),
-                            binding.dbLayoutBoardPreview.width.toFloat(),
-                            binding.dbTextSloganPreview.left.toFloat()
-                        ).apply {
-                            duration = 2000L
-                            repeatCount = ValueAnimator.INFINITE
-                        })
-                    }
-
-                    animatorSet = AnimatorSet()
-                    animatorSet.apply {
-                        playTogether(playSet)
-                        start()
+                        animatorRolling.apply {
+                            setFloatValues(
+                                binding.dbLayoutBoardPreview.width.toFloat(),
+                                -binding.dbTextSloganPreview.width.toFloat()
+                            )
+                            if (isStarted) {
+                                resume()
+                            } else {
+                                start()
+                            }
+                        }
+                    } else {
+                        animatorRolling.pause()
                     }
                 }
             }
@@ -141,13 +160,11 @@ class DazzlingBoardFragment : Fragment() {
             )
         }
         binding.dbSwitchFlashing.setOnCheckedChangeListener { _, isChecked ->
-            animatorSet.cancel()
             viewModel.switchFlashing(
                 isChecked
             )
         }
         binding.dbSwitchRolling.setOnCheckedChangeListener { _, isChecked ->
-            animatorSet.cancel()
             viewModel.switchRolling(
                 isChecked
             )
