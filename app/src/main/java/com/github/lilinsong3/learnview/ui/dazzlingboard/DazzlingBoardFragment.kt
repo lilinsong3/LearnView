@@ -68,7 +68,6 @@ class DazzlingBoardFragment : Fragment() {
             Color.WHITE
         ).apply {
             repeatCount = ValueAnimator.INFINITE
-            duration = 2000L
         }
 
         val animatorSloganColor = ObjectAnimator.ofArgb(
@@ -78,17 +77,17 @@ class DazzlingBoardFragment : Fragment() {
             Color.BLACK
         ).apply {
             repeatCount = ValueAnimator.INFINITE
-            duration = 2000L
         }
 
         val animatorFlashing = AnimatorSet().apply {
             playTogether(animatorBoardBackgroundColor, animatorSloganColor)
+            duration = 3000L
         }
         val animatorRolling = ObjectAnimator.ofFloat(
             binding.dbTextSloganPreview,
             "x",
-            binding.dbLayoutBoardPreview.width.toFloat(),
-            -binding.dbTextSloganPreview.width.toFloat()
+            0f,
+            0f
         ).apply {
             duration = 2000L
             interpolator = LinearInterpolator()
@@ -123,7 +122,7 @@ class DazzlingBoardFragment : Fragment() {
                     // 动画
                     if (it.flashing) {
                         // 背景色动画和文字颜色动画
-                        // TODO: 检查是否需要用post
+                        // FIXME: 第一次闪烁和后续开启后的效果不一样，首次闪烁平缓，后续开启后闪烁频繁，是ofArgb和setIntValues()的问题
                         animatorBoardBackgroundColor.apply {
                             setIntValues(it.backgroundColor, it.textColor)
                         }
@@ -153,7 +152,6 @@ class DazzlingBoardFragment : Fragment() {
                                 } else {
                                     start()
                                 }
-
                             }
                         }
                     } else {
@@ -186,7 +184,7 @@ class DazzlingBoardFragment : Fragment() {
                     binding.dbBtnPlayControl.visibility = View.VISIBLE
                     // 延时隐藏按钮
                     dismissPlayControlBtn = Runnable { binding.dbBtnPlayControl.visibility = View.GONE }
-                    mainLooperHandler.postDelayed(dismissPlayControlBtn!!, 1000L)
+                    mainLooperHandler.postDelayed(dismissPlayControlBtn!!, 2000L)
                     return@setOnClickListener
                 }
                 // 如果是显示的，就立即隐藏

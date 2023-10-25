@@ -5,6 +5,8 @@
     android:id="@+id/app_navi"
     app:startDestination="@id/gridTextFragment">
 
+    <!--  TODO: 添加一个展示应用图标和版本信息的首页  -->
+
     <fragment
         android:id="@+id/gridTextFragment"
         android:name="com.github.lilinsong3.learnview.ui.gridtext.GridTextFragment"
