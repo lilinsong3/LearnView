@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/app_navi"
-    app:startDestination="@id/gridTextFragment">
+    app:startDestination="@id/welcomeFragment">
 
     <!--  TODO: 添加一个展示应用图标和版本信息的首页  -->
 
@@ -17,5 +17,10 @@
         android:name="com.github.lilinsong3.learnview.ui.dazzlingboard.DazzlingBoardFragment"
         android:label="@string/short_dazzling_board_title"
         tools:layout="@layout/fragment_dazzling_board" />
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="com.github.lilinsong3.learnview.ui.welcome.WelcomeFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_welcome" />
 
 </navigation>

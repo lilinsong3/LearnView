@@ -27,7 +27,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="?attr/actionBarSize"
-                    app:logo="@drawable/ic_app_logo"
                     app:logoDescription="@string/app_name" />
             </com.google.android.material.appbar.AppBarLayout>
             <androidx.fragment.app.FragmentContainerView
