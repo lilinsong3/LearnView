@@ -25,6 +25,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.github.lilinsong3.learnview.Event
 import com.github.lilinsong3.learnview.SharedMainViewModel
 import com.github.lilinsong3.learnview.databinding.FragmentDazzlingBoardBinding
+import com.google.android.material.animation.ArgbEvaluatorCompat
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -68,6 +69,7 @@ class DazzlingBoardFragment : Fragment() {
             Color.WHITE
         ).apply {
             repeatCount = ValueAnimator.INFINITE
+            repeatMode = ValueAnimator.REVERSE
         }
 
         val animatorSloganColor = ObjectAnimator.ofArgb(
@@ -77,6 +79,7 @@ class DazzlingBoardFragment : Fragment() {
             Color.BLACK
         ).apply {
             repeatCount = ValueAnimator.INFINITE
+            repeatMode = ValueAnimator.REVERSE
         }
 
         val animatorFlashing = AnimatorSet().apply {
@@ -101,6 +104,9 @@ class DazzlingBoardFragment : Fragment() {
                     if (binding.dbTextSloganPreview.text != it.text) {
                         binding.dbTextSloganPreview.text = it.text
                     }
+                    if (binding.dbInputSlogan.editText?.text.toString() != it.text) {
+                        binding.dbInputSlogan.editText?.setText(it.text)
+                    }
                     binding.dbLayoutBoardPreview.setBackgroundColor(it.backgroundColor)
                     binding.dbTextSloganPreview.setTextColor(it.textColor)
                     binding.dbTextSloganPreview.textSize = it.textSize
@@ -122,12 +128,15 @@ class DazzlingBoardFragment : Fragment() {
                     // 动画
                     if (it.flashing) {
                         // 背景色动画和文字颜色动画
-                        // FIXME: 第一次闪烁和后续开启后的效果不一样，首次闪烁平缓，后续开启后闪烁频繁，是ofArgb和setIntValues()的问题
                         animatorBoardBackgroundColor.apply {
+                            // 设置 Int 类型值
                             setIntValues(it.backgroundColor, it.textColor)
+                            // 使用颜色估值器
+                            setEvaluator(ArgbEvaluatorCompat.getInstance())
                         }
                         animatorSloganColor.apply {
                             setIntValues(it.textColor, it.backgroundColor)
+                            setEvaluator(ArgbEvaluatorCompat.getInstance())
                         }
                         if (animatorFlashing.isStarted) {
                             animatorFlashing.resume()
@@ -222,7 +231,7 @@ class DazzlingBoardFragment : Fragment() {
         // 事件绑定
         binding.dbInputSlogan.editText?.doOnTextChanged { text, _, _, _ ->
             viewModel.inputText(
-                (text ?: "") as String
+                (text ?: "").toString()
             )
         }
         binding.dbSliderSloganColor.addOnChangeListener { _, value, fromUser ->
