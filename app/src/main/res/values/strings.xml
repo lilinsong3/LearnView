@@ -16,6 +16,5 @@
     <string name="short_play">播放</string>
     <string name="short_exit">退出</string>
     <string name="short_reset">重置</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="app_version_info">当前版本：%s</string>
 </resources>
