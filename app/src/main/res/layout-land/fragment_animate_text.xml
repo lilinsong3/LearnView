@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.dazzlingboard.DazzlingBoardFragment">
+    tools:context=".ui.animatetext.AnimateTextFragment">
 
     <FrameLayout
-        android:id="@+id/db_layout_board_preview"
+        android:id="@+id/at_layout_board_preview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?attr/colorOnSurface"
         android:paddingVertical="16dp">
         <TextView
-            android:id="@+id/db_text_slogan_preview"
+            android:id="@+id/at_text_slogan_preview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -23,7 +23,7 @@
     </FrameLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/db_input_slogan"
+        android:id="@+id/at_input_slogan"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="@string/long_input_slogan"
@@ -34,14 +34,14 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
-        android:id="@+id/db_text_bg"
+        android:id="@+id/at_text_bg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/short_background_color"
         android:visibility="gone"/>
 
     <com.google.android.material.slider.Slider
-        android:id="@+id/db_slider_bg"
+        android:id="@+id/at_slider_bg"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:contentDescription="@string/short_background_color"
@@ -51,14 +51,14 @@
         app:labelBehavior="gone" />
 
     <TextView
-        android:id="@+id/db_text_slogan_color"
+        android:id="@+id/at_text_slogan_color"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/short_text_color"
         android:visibility="gone" />
 
     <com.google.android.material.slider.Slider
-        android:id="@+id/db_slider_slogan_color"
+        android:id="@+id/at_slider_slogan_color"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:contentDescription="@string/short_text_color"
@@ -68,14 +68,14 @@
         app:labelBehavior="gone" />
 
     <TextView
-        android:id="@+id/db_text_slogan_size"
+        android:id="@+id/at_text_slogan_size"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/short_text_size"
         android:visibility="gone" />
 
     <com.google.android.material.slider.Slider
-        android:id="@+id/db_slider_slogan_size"
+        android:id="@+id/at_slider_slogan_size"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:valueFrom="12.0"
@@ -85,33 +85,33 @@
         app:labelBehavior="gone" />
 
     <TextView
-        android:id="@+id/db_text_flashing"
+        android:id="@+id/at_text_flashing"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/short_flashing"
         android:visibility="gone" />
 
     <com.google.android.material.materialswitch.MaterialSwitch
-        android:id="@+id/db_switch_flashing"
+        android:id="@+id/at_switch_flashing"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone" />
 
     <TextView
-        android:id="@+id/db_text_rolling"
+        android:id="@+id/at_text_rolling"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/short_rolling"
         android:visibility="gone" />
 
     <com.google.android.material.materialswitch.MaterialSwitch
-        android:id="@+id/db_switch_rolling"
+        android:id="@+id/at_switch_rolling"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/db_btn_reset"
+        android:id="@+id/at_btn_reset"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/short_reset"
@@ -119,7 +119,7 @@
 
     <com.google.android.material.button.MaterialButton
         style="?attr/materialButtonOutlinedStyle"
-        android:id="@+id/db_btn_play_control"
+        android:id="@+id/at_btn_play_control"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"

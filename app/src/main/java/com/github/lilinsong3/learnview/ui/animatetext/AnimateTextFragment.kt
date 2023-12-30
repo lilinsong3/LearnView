@@ -1,4 +1,4 @@
-package com.github.lilinsong3.learnview.ui.dazzlingboard
+package com.github.lilinsong3.learnview.ui.animatetext
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
@@ -24,7 +24,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.github.lilinsong3.learnview.Event
 import com.github.lilinsong3.learnview.SharedMainViewModel
-import com.github.lilinsong3.learnview.databinding.FragmentDazzlingBoardBinding
+import com.github.lilinsong3.learnview.databinding.FragmentAnimateTextBinding
 import com.google.android.material.animation.ArgbEvaluatorCompat
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -34,15 +34,15 @@ import kotlinx.coroutines.launch
  * status bar and navigation/system bar) with user interaction.
  */
 @AndroidEntryPoint
-class DazzlingBoardFragment : Fragment() {
+class AnimateTextFragment : Fragment() {
 
-    private var _binding: FragmentDazzlingBoardBinding? = null
+    private var _binding: FragmentAnimateTextBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private val viewModel: DazzlingBoardViewModel by viewModels()
+    private val viewModel: AnimateTextViewModel by viewModels()
     private val sharedMainViewModel: SharedMainViewModel by activityViewModels()
 
     private val mainLooperHandler: Handler = Handler(Looper.getMainLooper())
@@ -52,8 +52,8 @@ class DazzlingBoardFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentDazzlingBoardBinding.inflate(inflater, container, false)
+    ): View {
+        _binding = FragmentAnimateTextBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -63,7 +63,7 @@ class DazzlingBoardFragment : Fragment() {
         val screenOrientation = resources.configuration.orientation
 
         val animatorBoardBackgroundColor = ObjectAnimator.ofArgb(
-            binding.dbLayoutBoardPreview,
+            binding.atLayoutBoardPreview,
             "backgroundColor",
             Color.BLACK,
             Color.WHITE
@@ -73,7 +73,7 @@ class DazzlingBoardFragment : Fragment() {
         }
 
         val animatorSloganColor = ObjectAnimator.ofArgb(
-            binding.dbTextSloganPreview,
+            binding.atTextSloganPreview,
             "textColor",
             Color.WHITE,
             Color.BLACK
@@ -87,7 +87,7 @@ class DazzlingBoardFragment : Fragment() {
             duration = 3000L
         }
         val animatorRolling = ObjectAnimator.ofFloat(
-            binding.dbTextSloganPreview,
+            binding.atTextSloganPreview,
             "x",
             0f,
             0f
@@ -99,30 +99,30 @@ class DazzlingBoardFragment : Fragment() {
         // 数据绑定
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.dazzlingBoardModelFlow.collect {
+                viewModel.animateTextModelFlow.collect {
                     // 预览牌
-                    if (binding.dbTextSloganPreview.text != it.text) {
-                        binding.dbTextSloganPreview.text = it.text
+                    if (binding.atTextSloganPreview.text != it.text) {
+                        binding.atTextSloganPreview.text = it.text
                     }
-                    if (binding.dbInputSlogan.editText?.text.toString() != it.text) {
-                        binding.dbInputSlogan.editText?.setText(it.text)
+                    if (binding.atInputSlogan.editText?.text.toString() != it.text) {
+                        binding.atInputSlogan.editText?.setText(it.text)
                     }
-                    binding.dbLayoutBoardPreview.setBackgroundColor(it.backgroundColor)
-                    binding.dbTextSloganPreview.setTextColor(it.textColor)
-                    binding.dbTextSloganPreview.textSize = it.textSize
+                    binding.atLayoutBoardPreview.setBackgroundColor(it.backgroundColor)
+                    binding.atTextSloganPreview.setTextColor(it.textColor)
+                    binding.atTextSloganPreview.textSize = it.textSize
 
                     // 竖屏则设置数据显示
                     if (screenOrientation == Configuration.ORIENTATION_PORTRAIT) {
                         // 背景颜色 slider
-                        binding.dbSliderBg.value = it.backgroundColor.toFloat()
+                        binding.atSliderBg.value = it.backgroundColor.toFloat()
                         // 文本颜色 slider
-                        binding.dbSliderSloganColor.value = it.textColor.toFloat()
+                        binding.atSliderSloganColor.value = it.textColor.toFloat()
                         // 文本尺寸 slider
-                        binding.dbSliderSloganSize.value = it.textSize
+                        binding.atSliderSloganSize.value = it.textSize
                         // 闪烁 switch
-                        binding.dbSwitchFlashing.isChecked = it.flashing
+                        binding.atSwitchFlashing.isChecked = it.flashing
                         // 滚动 switch
-                        binding.dbSwitchRolling.isChecked = it.rolling
+                        binding.atSwitchRolling.isChecked = it.rolling
                     }
 
                     // 动画
@@ -150,11 +150,11 @@ class DazzlingBoardFragment : Fragment() {
                     if (it.rolling) {
                         // 平移滚动动画
                         // 使用post，等待width测量确定后，再开始动画
-                        binding.dbTextSloganPreview.post {
+                        binding.atTextSloganPreview.post {
                             animatorRolling.apply {
                                 setFloatValues(
-                                    binding.dbLayoutBoardPreview.width.toFloat(),
-                                    -binding.dbTextSloganPreview.width.toFloat()
+                                    binding.atLayoutBoardPreview.width.toFloat(),
+                                    -binding.atTextSloganPreview.width.toFloat()
                                 )
                                 if (isStarted) {
                                     resume()
@@ -189,22 +189,22 @@ class DazzlingBoardFragment : Fragment() {
 
             // 控制播放按钮显示
             binding.root.setOnClickListener {
-                if (binding.dbBtnPlayControl.visibility == View.GONE) {
-                    binding.dbBtnPlayControl.visibility = View.VISIBLE
+                if (binding.atBtnPlayControl.visibility == View.GONE) {
+                    binding.atBtnPlayControl.visibility = View.VISIBLE
                     // 延时隐藏按钮
-                    dismissPlayControlBtn = Runnable { binding.dbBtnPlayControl.visibility = View.GONE }
+                    dismissPlayControlBtn = Runnable { binding.atBtnPlayControl.visibility = View.GONE }
                     mainLooperHandler.postDelayed(dismissPlayControlBtn!!, 2000L)
                     return@setOnClickListener
                 }
                 // 如果是显示的，就立即隐藏
-                if (binding.dbBtnPlayControl.visibility == View.VISIBLE) {
+                if (binding.atBtnPlayControl.visibility == View.VISIBLE) {
                     cancelDismissPlayControlBtn()
-                    binding.dbBtnPlayControl.visibility = View.GONE
+                    binding.atBtnPlayControl.visibility = View.GONE
                 }
             }
         }
 
-        binding.dbBtnPlayControl.setOnClickListener {
+        binding.atBtnPlayControl.setOnClickListener {
             if (screenOrientation == Configuration.ORIENTATION_PORTRAIT) {
                 requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
                 return@setOnClickListener
@@ -223,40 +223,40 @@ class DazzlingBoardFragment : Fragment() {
     }
 
     private fun bindControlEvent() {
-        binding.dbSliderBg.addOnChangeListener { _, value, fromUser ->
+        binding.atSliderBg.addOnChangeListener { _, value, fromUser ->
             if (fromUser) viewModel.slideBackgroundColor(
                 value.toInt()
             )
         }
         // 事件绑定
-        binding.dbInputSlogan.editText?.doOnTextChanged { text, _, _, _ ->
+        binding.atInputSlogan.editText?.doOnTextChanged { text, _, _, _ ->
             viewModel.inputText(
                 (text ?: "").toString()
             )
         }
-        binding.dbSliderSloganColor.addOnChangeListener { _, value, fromUser ->
+        binding.atSliderSloganColor.addOnChangeListener { _, value, fromUser ->
             if (fromUser) viewModel.slideTextColor(
                 value.toInt()
             )
         }
-        binding.dbSliderSloganSize.addOnChangeListener { _, value, fromUser ->
+        binding.atSliderSloganSize.addOnChangeListener { _, value, fromUser ->
             if (fromUser) viewModel.slideTextSize(
                 value
             )
         }
-        binding.dbSwitchFlashing.setOnCheckedChangeListener { _, isChecked ->
+        binding.atSwitchFlashing.setOnCheckedChangeListener { _, isChecked ->
             viewModel.switchFlashing(
                 isChecked
             )
         }
-        binding.dbSwitchRolling.setOnCheckedChangeListener { _, isChecked ->
+        binding.atSwitchRolling.setOnCheckedChangeListener { _, isChecked ->
             viewModel.switchRolling(
                 isChecked
             )
         }
 
         // 重置
-        binding.dbBtnReset.setOnClickListener { viewModel.reset() }
+        binding.atBtnReset.setOnClickListener { viewModel.reset() }
     }
 
     override fun onDestroyView() {

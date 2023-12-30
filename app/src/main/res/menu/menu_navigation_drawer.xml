@@ -21,9 +21,9 @@
         android:title="@string/short_custom_view">
         <menu>
             <item
-                android:id="@+id/dazzlingBoardFragment"
+                android:id="@+id/animateTextFragment"
                 android:icon="@drawable/ic_android"
-                android:title="@string/short_dazzling_board_title"
+                android:title="@string/short_animate_text_title"
                 android:checkable="true" />
         </menu>
     </item>

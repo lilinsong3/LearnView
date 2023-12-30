@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context=".ui.dazzlingboard.DazzlingBoardFragment">
+    tools:context=".ui.animatetext.AnimateTextFragment">
 
     <FrameLayout
-        android:id="@+id/db_layout_board_preview"
+        android:id="@+id/at_layout_board_preview"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="?attr/colorOnSurface"
@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
         <TextView
-            android:id="@+id/db_text_slogan_preview"
+            android:id="@+id/at_text_slogan_preview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -27,32 +27,32 @@
     </FrameLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/db_input_slogan"
+        android:id="@+id/at_input_slogan"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="@string/long_input_slogan"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/db_layout_board_preview"
-        app:layout_constraintBottom_toTopOf="@id/db_text_bg">
+        app:layout_constraintTop_toBottomOf="@id/at_layout_board_preview"
+        app:layout_constraintBottom_toTopOf="@id/at_text_bg">
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
-        android:id="@+id/db_text_bg"
+        android:id="@+id/at_text_bg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/short_background_color"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/db_slider_bg"
-        app:layout_constraintTop_toBottomOf="@id/db_input_slogan"
-        app:layout_constraintBottom_toTopOf="@id/db_text_slogan_color"
+        app:layout_constraintEnd_toStartOf="@id/at_slider_bg"
+        app:layout_constraintTop_toBottomOf="@id/at_input_slogan"
+        app:layout_constraintBottom_toTopOf="@id/at_text_slogan_color"
         app:layout_constraintHorizontal_chainStyle="spread_inside" />
 
     <com.google.android.material.slider.Slider
-        android:id="@+id/db_slider_bg"
+        android:id="@+id/at_slider_bg"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:contentDescription="@string/short_background_color"
@@ -61,23 +61,23 @@
         app:labelBehavior="gone"
         app:layout_constraintWidth_percent=".8"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/db_text_bg"
-        app:layout_constraintStart_toEndOf="@id/db_text_bg"
-        app:layout_constraintTop_toTopOf="@id/db_text_bg" />
+        app:layout_constraintBottom_toBottomOf="@+id/at_text_bg"
+        app:layout_constraintStart_toEndOf="@id/at_text_bg"
+        app:layout_constraintTop_toTopOf="@id/at_text_bg" />
 
     <TextView
-        android:id="@+id/db_text_slogan_color"
+        android:id="@+id/at_text_slogan_color"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/short_text_color"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/db_slider_slogan_color"
-        app:layout_constraintTop_toBottomOf="@id/db_text_bg"
-        app:layout_constraintBottom_toTopOf="@id/db_text_slogan_size"
+        app:layout_constraintEnd_toStartOf="@id/at_slider_slogan_color"
+        app:layout_constraintTop_toBottomOf="@id/at_text_bg"
+        app:layout_constraintBottom_toTopOf="@id/at_text_slogan_size"
         app:layout_constraintHorizontal_chainStyle="spread_inside" />
 
     <com.google.android.material.slider.Slider
-        android:id="@+id/db_slider_slogan_color"
+        android:id="@+id/at_slider_slogan_color"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:contentDescription="@string/short_text_color"
@@ -86,23 +86,23 @@
         app:labelBehavior="gone"
         app:layout_constraintWidth_percent=".8"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/db_text_slogan_color"
-        app:layout_constraintStart_toEndOf="@id/db_text_slogan_color"
-        app:layout_constraintTop_toTopOf="@id/db_text_slogan_color" />
+        app:layout_constraintBottom_toBottomOf="@+id/at_text_slogan_color"
+        app:layout_constraintStart_toEndOf="@id/at_text_slogan_color"
+        app:layout_constraintTop_toTopOf="@id/at_text_slogan_color" />
 
     <TextView
-        android:id="@+id/db_text_slogan_size"
+        android:id="@+id/at_text_slogan_size"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/short_text_size"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/db_slider_slogan_size"
-        app:layout_constraintTop_toBottomOf="@id/db_text_slogan_color"
-        app:layout_constraintBottom_toTopOf="@id/db_switch_flashing"
+        app:layout_constraintEnd_toStartOf="@id/at_slider_slogan_size"
+        app:layout_constraintTop_toBottomOf="@id/at_text_slogan_color"
+        app:layout_constraintBottom_toTopOf="@id/at_switch_flashing"
         app:layout_constraintHorizontal_chainStyle="spread_inside" />
 
     <com.google.android.material.slider.Slider
-        android:id="@+id/db_slider_slogan_size"
+        android:id="@+id/at_slider_slogan_size"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:valueFrom="12.0"
@@ -111,68 +111,68 @@
         app:labelBehavior="gone"
         app:layout_constraintWidth_percent=".8"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/db_text_slogan_size"
-        app:layout_constraintStart_toEndOf="@id/db_text_slogan_size"
-        app:layout_constraintTop_toTopOf="@id/db_text_slogan_size" />
+        app:layout_constraintBottom_toBottomOf="@+id/at_text_slogan_size"
+        app:layout_constraintStart_toEndOf="@id/at_text_slogan_size"
+        app:layout_constraintTop_toTopOf="@id/at_text_slogan_size" />
 
     <TextView
-        android:id="@+id/db_text_flashing"
+        android:id="@+id/at_text_flashing"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/short_flashing"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/db_switch_flashing"
-        app:layout_constraintTop_toBottomOf="@id/db_text_slogan_size"
-        app:layout_constraintBottom_toTopOf="@id/db_text_rolling"
+        app:layout_constraintEnd_toStartOf="@id/at_switch_flashing"
+        app:layout_constraintTop_toBottomOf="@id/at_text_slogan_size"
+        app:layout_constraintBottom_toTopOf="@id/at_text_rolling"
         app:layout_constraintHorizontal_chainStyle="spread_inside" />
 
     <com.google.android.material.materialswitch.MaterialSwitch
-        android:id="@+id/db_switch_flashing"
+        android:id="@+id/at_switch_flashing"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/db_text_flashing"
-        app:layout_constraintBottom_toBottomOf="@+id/db_text_flashing"
+        app:layout_constraintStart_toEndOf="@id/at_text_flashing"
+        app:layout_constraintBottom_toBottomOf="@+id/at_text_flashing"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/db_text_flashing" />
+        app:layout_constraintTop_toTopOf="@+id/at_text_flashing" />
 
     <TextView
-        android:id="@+id/db_text_rolling"
+        android:id="@+id/at_text_rolling"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/short_rolling"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/db_switch_rolling"
-        app:layout_constraintTop_toBottomOf="@id/db_text_flashing"
-        app:layout_constraintBottom_toTopOf="@id/db_btn_play_control"
+        app:layout_constraintEnd_toStartOf="@id/at_switch_rolling"
+        app:layout_constraintTop_toBottomOf="@id/at_text_flashing"
+        app:layout_constraintBottom_toTopOf="@id/at_btn_play_control"
         app:layout_constraintHorizontal_chainStyle="spread_inside" />
 
     <com.google.android.material.materialswitch.MaterialSwitch
-        android:id="@+id/db_switch_rolling"
+        android:id="@+id/at_switch_rolling"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/db_text_rolling"
-        app:layout_constraintBottom_toBottomOf="@id/db_text_rolling"
+        app:layout_constraintStart_toEndOf="@id/at_text_rolling"
+        app:layout_constraintBottom_toBottomOf="@id/at_text_rolling"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/db_text_rolling" />
+        app:layout_constraintTop_toTopOf="@+id/at_text_rolling" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/db_btn_reset"
+        android:id="@+id/at_btn_reset"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/short_reset"
-        app:layout_constraintTop_toBottomOf="@id/db_text_rolling"
+        app:layout_constraintTop_toBottomOf="@id/at_text_rolling"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/db_btn_play_control"
+        app:layout_constraintEnd_toStartOf="@id/at_btn_play_control"
         app:layout_constraintBottom_toBottomOf="parent" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/db_btn_play_control"
+        android:id="@+id/at_btn_play_control"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/short_play"
-        app:layout_constraintTop_toTopOf="@id/db_btn_reset"
-        app:layout_constraintStart_toEndOf="@id/db_btn_reset"
+        app:layout_constraintTop_toTopOf="@id/at_btn_reset"
+        app:layout_constraintStart_toEndOf="@id/at_btn_reset"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/db_btn_reset" />
+        app:layout_constraintBottom_toBottomOf="@id/at_btn_reset" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,10 +1,10 @@
 package com.github.lilinsong3.learnview.data.repository
 
-import com.github.lilinsong3.learnview.data.model.DazzlingBoardModel
+import com.github.lilinsong3.learnview.data.model.AnimateTextModel
 import kotlinx.coroutines.flow.Flow
 
-interface DazzlingBoardRepository {
-    fun getDazzlingBoardStream(): Flow<DazzlingBoardModel>
+interface AnimateTextRepository {
+    fun getAnimateTextStream(): Flow<AnimateTextModel>
     suspend fun saveSlogan(slogan: String)
     suspend fun saveBackgroundColor(backgroundColor: Int)
     suspend fun saveSloganColor(sloganColor: Int)

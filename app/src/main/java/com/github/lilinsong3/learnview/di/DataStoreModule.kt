@@ -1,7 +1,7 @@
 package com.github.lilinsong3.learnview.di
 
 import android.content.Context
-import com.github.lilinsong3.learnview.data.repository.dazzlingBoardDataStore
+import com.github.lilinsong3.learnview.data.repository.animateTextDataStore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,5 +15,5 @@ object DataStoreModule {
 
     @Singleton
     @Provides
-    fun provideDazzlingBoardDataStore(@ApplicationContext context: Context) = context.dazzlingBoardDataStore
+    fun provideAnimateTextDataStore(@ApplicationContext context: Context) = context.animateTextDataStore
 }

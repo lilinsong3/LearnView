@@ -3,19 +3,25 @@ package com.github.lilinsong3.learnview.data.repository
 import android.content.Context
 import android.graphics.Color
 import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.*
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.emptyPreferences
+import androidx.datastore.preferences.core.floatPreferencesKey
+import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
-import com.github.lilinsong3.learnview.data.model.DazzlingBoardModel
+import com.github.lilinsong3.learnview.data.model.AnimateTextModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import java.io.IOException
 import javax.inject.Inject
 
-val Context.dazzlingBoardDataStore: DataStore<Preferences> by preferencesDataStore(name = "dazzlingBoard")
+val Context.animateTextDataStore: DataStore<Preferences> by preferencesDataStore(name = "animateText")
 
-class DefaultDazzlingBoardRepository @Inject constructor(private val dataStore: DataStore<Preferences>) :
-    DazzlingBoardRepository {
+class DefaultAnimateTextRepository @Inject constructor(private val dataStore: DataStore<Preferences>) :
+    AnimateTextRepository {
 
     companion object {
         val TEXT = stringPreferencesKey("text")
@@ -26,7 +32,7 @@ class DefaultDazzlingBoardRepository @Inject constructor(private val dataStore: 
         val ROLLING = booleanPreferencesKey("rolling")
     }
 
-    override fun getDazzlingBoardStream(): Flow<DazzlingBoardModel> = dataStore.data
+    override fun getAnimateTextStream(): Flow<AnimateTextModel> = dataStore.data
         .catch { exception ->
             // dataStore.data throws an IOException when an error is encountered when reading data
             if (exception is IOException) {
@@ -36,8 +42,8 @@ class DefaultDazzlingBoardRepository @Inject constructor(private val dataStore: 
             }
         }
         .map { preferences ->
-            DazzlingBoardModel(
-                preferences[TEXT] ?: "夺目牌",
+            AnimateTextModel(
+                preferences[TEXT] ?: "动画文本",
                 preferences[BACKGROUND_COLOR] ?: Color.BLACK,
                 preferences[TEXT_COLOR] ?: Color.WHITE,
                 preferences[TEXT_SIZE] ?: 48f,
@@ -84,7 +90,7 @@ class DefaultDazzlingBoardRepository @Inject constructor(private val dataStore: 
 
     override suspend fun reset() {
         dataStore.edit { mutablePreferences ->
-            mutablePreferences[TEXT] = "夺目牌"
+            mutablePreferences[TEXT] = "动画文本"
             mutablePreferences[BACKGROUND_COLOR] = Color.BLACK
             mutablePreferences[TEXT_COLOR] = Color.WHITE
             mutablePreferences[TEXT_SIZE] = 48f

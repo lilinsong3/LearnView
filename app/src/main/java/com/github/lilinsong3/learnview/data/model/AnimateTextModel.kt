@@ -2,7 +2,7 @@ package com.github.lilinsong3.learnview.data.model
 
 import androidx.annotation.ColorInt
 
-data class DazzlingBoardModel(
+data class AnimateTextModel(
     val text: String,
     @ColorInt
     val backgroundColor: Int,

@@ -1,56 +1,56 @@
-package com.github.lilinsong3.learnview.ui.dazzlingboard
+package com.github.lilinsong3.learnview.ui.animatetext
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.lilinsong3.learnview.data.repository.DazzlingBoardRepository
+import com.github.lilinsong3.learnview.data.repository.AnimateTextRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class DazzlingBoardViewModel @Inject constructor(
-    private val dazzlingBoardRepository: DazzlingBoardRepository
+class AnimateTextViewModel @Inject constructor(
+    private val animateTextRepository: AnimateTextRepository
 ) : ViewModel() {
-    val dazzlingBoardModelFlow = dazzlingBoardRepository.getDazzlingBoardStream()
+    val animateTextModelFlow = animateTextRepository.getAnimateTextStream()
     fun inputText(text: String) {
         viewModelScope.launch {
-            dazzlingBoardRepository.saveSlogan(text)
+            animateTextRepository.saveSlogan(text)
         }
     }
 
     fun slideBackgroundColor(color: Int) {
         viewModelScope.launch {
-            dazzlingBoardRepository.saveBackgroundColor(color)
+            animateTextRepository.saveBackgroundColor(color)
         }
     }
 
     fun slideTextColor(textColor: Int) {
         viewModelScope.launch {
-            dazzlingBoardRepository.saveSloganColor(textColor)
+            animateTextRepository.saveSloganColor(textColor)
         }
     }
 
     fun slideTextSize(textSize: Float) {
         viewModelScope.launch {
-            dazzlingBoardRepository.saveSloganSize(textSize)
+            animateTextRepository.saveSloganSize(textSize)
         }
     }
 
     fun switchFlashing(flashing: Boolean) {
         viewModelScope.launch {
-            dazzlingBoardRepository.saveFlashing(flashing)
+            animateTextRepository.saveFlashing(flashing)
         }
     }
 
     fun switchRolling(rolling: Boolean) {
         viewModelScope.launch {
-            dazzlingBoardRepository.saveRolling(rolling)
+            animateTextRepository.saveRolling(rolling)
         }
     }
 
     fun reset() {
         viewModelScope.launch {
-            dazzlingBoardRepository.reset()
+            animateTextRepository.reset()
         }
     }
 }
