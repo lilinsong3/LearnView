@@ -18,12 +18,18 @@
     </item>
     <item
         android:id="@+id/mi_demo_practice"
-        android:title="@string/short_custom_view">
+        android:title="@string/short_demo_practice">
         <menu>
             <item
                 android:id="@+id/animateTextFragment"
                 android:icon="@drawable/ic_android"
                 android:title="@string/short_animate_text_title"
+                android:checkable="true" />
+
+            <item
+                android:id="@+id/medianLMFragment"
+                android:icon="@drawable/ic_android"
+                android:title="@string/median_lm_title"
                 android:checkable="true" />
         </menu>
     </item>

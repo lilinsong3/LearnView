@@ -18,4 +18,16 @@
         <item name="android:background">@color/black_overlay</item>
         <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
     </style>
+    <style name="Widget.Theme.LearnView.MyView" parent="">
+        <item name="android:background">@color/gray_400</item>
+        <item name="exampleColor">@color/light_blue_400</item>
+    </style>
+
+    <style name="HighlightMedianText" parent="TextAppearance.Material3.DisplayMedium">
+        <item name="android:textColor">@color/moon_white</item>
+    </style>
+
+    <style name="MedianText" parent="TextAppearance.Material3.DisplaySmall">
+        <item name="android:textColor">@color/moon_shadow_white</item>
+    </style>
 </resources>

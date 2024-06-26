@@ -16,5 +16,9 @@
     <string name="short_play">播放</string>
     <string name="short_exit">退出</string>
     <string name="short_reset">重置</string>
+    <string name="median_lm_title">可滚动到中间的LayoutManager</string>
+    <string name="android_icon">安卓图标</string>
     <string name="app_version_info">当前版本：%s</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

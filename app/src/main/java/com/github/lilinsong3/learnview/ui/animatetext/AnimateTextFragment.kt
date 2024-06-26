@@ -205,13 +205,8 @@ class AnimateTextFragment : Fragment() {
         }
 
         binding.atBtnPlayControl.setOnClickListener {
-            if (screenOrientation == Configuration.ORIENTATION_PORTRAIT) {
-                requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-                return@setOnClickListener
-            }
-            if (screenOrientation == Configuration.ORIENTATION_LANDSCAPE) {
-                requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-            }
+            requireActivity().requestedOrientation =
+                if (screenOrientation == Configuration.ORIENTATION_PORTRAIT) ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE else ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         }
 
     }
@@ -260,10 +255,10 @@ class AnimateTextFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
         // 恢复AppBar显示
         cancelDismissPlayControlBtn()
         _binding = null
+        super.onDestroyView()
     }
 
 

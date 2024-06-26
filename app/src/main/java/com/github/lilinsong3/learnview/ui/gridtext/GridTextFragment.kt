@@ -22,7 +22,7 @@ class GridTextFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
         _dataBinding = null
+        super.onDestroyView()
     }
 }
